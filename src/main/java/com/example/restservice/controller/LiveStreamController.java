@@ -27,11 +27,10 @@ Delete: localhost:8080/streams/04f0ccd0-78be-4b28-99f4-fdbfeb6c0548
 @RequestMapping("/streams") //mapping route for all the methods below
 public class LiveStreamController {
 
-    //@Autowired -> this makes it harder to unit test if written over the parameter, so instead follow the setup below for easier unit testing
     private final LiveStreamRepository liveStreamRepository;
 
     @Autowired
-    public LiveStreamController(LiveStreamRepository repository) { // this takes in parameter, so can easily unit test without about external databases
+    public LiveStreamController(LiveStreamRepository repository) { // this takes in parameter, so can easily unit test without thinking about external databases
         liveStreamRepository = repository;
     }
 
@@ -53,7 +52,7 @@ public class LiveStreamController {
         return liveStreamRepository.create(stream);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT) // good practice is nothing is being returned
+    @ResponseStatus(HttpStatus.NO_CONTENT) // good practice for nothing being returned
     @PutMapping("/{id}")
     public void update(@Valid @RequestBody LiveStream stream, @PathVariable String id) {
         liveStreamRepository.update(stream, id);
